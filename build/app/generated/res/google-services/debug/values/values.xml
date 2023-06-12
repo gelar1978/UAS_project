@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">171707937418-8498bo7lb6di6gi034od0qlm9l9iikd6.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://mobapp-2223-2-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+    <string name="gcm_defaultSenderId" translatable="false">171707937418</string>
+    <string name="google_api_key" translatable="false">AIzaSyDqc6jw1_BMzCLFzwRQ0F2tOOT6TmsfD7w</string>
+    <string name="google_app_id" translatable="false">1:171707937418:android:f870e8f2b8b33f17a5b373</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDqc6jw1_BMzCLFzwRQ0F2tOOT6TmsfD7w</string>
+    <string name="google_storage_bucket" translatable="false">mobapp-2223-2.appspot.com</string>
+    <string name="project_id" translatable="false">mobapp-2223-2</string>
+</resources>

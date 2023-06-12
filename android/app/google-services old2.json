@@ -1,0 +1,88 @@
+{
+  "project_info": {
+    "project_number": "171707937418",
+    "firebase_url": "https://mobapp-2223-2-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mobapp-2223-2",
+    "storage_bucket": "mobapp-2223-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171707937418:android:f870e8f2b8b33f17a5b373",
+        "android_client_info": {
+          "package_name": "mobapp2223_2.telu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171707937418-28e1oebfijsp9dvmf4cr8art6bn317an.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobapp2223_2.telu",
+            "certificate_hash": "27118923bfe667b25866f7e4e9589619f7725a88"
+          }
+        },
+        {
+          "client_id": "171707937418-bjhgvo221skf7ii2k36pe4dqq5ok9kam.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobapp2223_2.telu",
+            "certificate_hash": "767473f01a1f320a7bf5f79882fb35a0a5760d5b"
+          }
+        },
+        {
+          "client_id": "171707937418-ff1pfk6mtmpv3k2luaouhjn3nbb9585s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobapp2223_2.telu",
+            "certificate_hash": "f3f78165bba48754d7f168366d21aa9efb33cd7d"
+          }
+        },
+        {
+          "client_id": "171707937418-h5qlv38cpkv7pr8lfcd9gk5ek97tv4t1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobapp2223_2.telu",
+            "certificate_hash": "4f928a6d654bed41e07ddf849328ee46f88e3fbb"
+          }
+        },
+        {
+          "client_id": "171707937418-ukrmtm69o06q4hqg3n65onq6ped4hglp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobapp2223_2.telu",
+            "certificate_hash": "34714b135e77a3d069b7daf6438084c20f366672"
+          }
+        },
+        {
+          "client_id": "171707937418-vk6gmlqia9hsp5kh8rt4jhlrji1iame1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobapp2223_2.telu",
+            "certificate_hash": "899fee52016163aef7d490c2a82544c5a1a0c15d"
+          }
+        },
+        {
+          "client_id": "171707937418-8498bo7lb6di6gi034od0qlm9l9iikd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqc6jw1_BMzCLFzwRQ0F2tOOT6TmsfD7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171707937418-0tdjppdl6g5j6ksffdknniikp7ubs5aq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
