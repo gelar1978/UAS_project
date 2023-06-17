@@ -1,6 +1,7 @@
 import 'package:UAS_project/Grup6/home6.dart';
+import 'package:UAS_project/Grup6/read6.dart';
 import 'package:UAS_project/Grup6/input6.dart';
-import 'package:UAS_project/Grup6/viewdata6.dart';
+import 'package:UAS_project/Grup6/viewer6.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +14,9 @@ class NavBarView extends StatelessWidget {
 
   final List<Widget> _listPage = [
     Home6(),
-    View6(),
-    Home6(),
+    read6(),
     Input6(),
-    Home6(),
+    ViewPDF(),
   ];
 
   @override
@@ -30,8 +30,6 @@ class NavBarView extends StatelessWidget {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.data_array), label: 'View Data'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.update), label: 'Update Data'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.input), label: 'Input Data'),
             BottomNavigationBarItem(

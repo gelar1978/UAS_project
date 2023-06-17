@@ -41,7 +41,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final ref = fb.ref().child('Grup6');
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,7 +53,7 @@ class _HomeState extends State<Home> {
       ),
       body: FirebaseAnimatedList(
         query: ref,
-        shrinkWrap: true,
+        shrinkWrap: false,
         itemBuilder: (context, snapshot, animation, index) {
           var v =
               snapshot.value.toString(); // {subtitle: webfun, title: subscribe}
@@ -72,18 +71,17 @@ class _HomeState extends State<Home> {
               setState(() {
                 k = snapshot.key;
               });
-
               showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
                   title: Container(
                     decoration: BoxDecoration(border: Border.all()),
-                    child: TextField(
-                      controller: second,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: 'title',
-                      ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [Text('hi')],
+                        ),
+                      ],
                     ),
                   ),
                   content: Container(

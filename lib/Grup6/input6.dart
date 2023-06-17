@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
+import 'package:UAS_project/Grup6/color6.dart';
 import 'package:UAS_project/Grup6/nav6.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_document_picker/flutter_document_picker.dart';
 
 class Input6 extends StatefulWidget {
   @override
@@ -10,6 +14,41 @@ class Input6 extends StatefulWidget {
 }
 
 class _Input6State extends State<Input6> {
+  static const _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+  String getRandomString(int len) => String.fromCharCodes(
+        Iterable.generate(
+          len,
+          (_) => _chars.codeUnitAt(
+            _rnd.nextInt(_chars.length),
+          ),
+        ),
+      );
+
+  Future<firebase_storage.UploadTask?> uploadFile(File file) async {
+    if (file == null) {
+      print("No File was Picked");
+      return null;
+    }
+
+    firebase_storage.UploadTask uploadTask;
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('Group6')
+        .child('/' + getRandomString(10) + '.pdf');
+
+    final metadata = firebase_storage.SettableMetadata(
+        contentType: 'file/pdf',
+        customMetadata: {'picked-file-path': file.path});
+    print("Uploading..!");
+
+    uploadTask = ref.putData(await file.readAsBytes(), metadata);
+
+    print("done..!");
+    return Future.value(uploadTask);
+  }
+
   final databaseReference = FirebaseDatabase.instance.ref('Grup6');
   final fb = FirebaseDatabase.instance;
   List<Data> dataList = [];
@@ -56,43 +95,45 @@ class _Input6State extends State<Input6> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Input Database'),
+        backgroundColor: Color6.lightPrimaryColor,
+        title: const Text('INPUT DATA'),
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
                   TextField(
                     controller: namaController,
-                    decoration: InputDecoration(labelText: 'Nama'),
+                    decoration: const InputDecoration(labelText: 'Name'),
                   ),
                   TextField(
                     controller: nimController,
-                    decoration: InputDecoration(labelText: 'NIM'),
+                    decoration: const InputDecoration(labelText: 'NIM'),
                   ),
                   TextField(
                     controller: emailController,
-                    decoration: InputDecoration(labelText: 'Email'),
+                    decoration: const InputDecoration(labelText: 'E-Mail'),
                   ),
                   TextField(
                     controller: kelasController,
-                    decoration: InputDecoration(labelText: 'KodeKelas'),
+                    decoration: const InputDecoration(labelText: 'Class Code'),
                   ),
                   TextField(
                     controller: dosenController,
-                    decoration: InputDecoration(labelText: 'KodeDosen'),
+                    decoration:
+                        const InputDecoration(labelText: 'Teacher Code'),
                   ),
                   TextField(
                     controller: nilaiController,
-                    decoration: InputDecoration(labelText: 'Nilai'),
+                    decoration: const InputDecoration(labelText: 'Grade'),
                   ),
                   TextField(
                     controller: jawabanController,
-                    decoration: InputDecoration(labelText: 'JawabanText'),
+                    decoration: const InputDecoration(labelText: 'Answer'),
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
@@ -101,8 +142,11 @@ class _Input6State extends State<Input6> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color6.lightSecondaryColor,
+                        ),
                         onPressed: () {
-                          ref.set({
+                          Map<String, dynamic> nilaiMhs = {
                             'nama': namaController.text,
                             'nim': nimController.text,
                             'email': emailController.text,
@@ -110,7 +154,8 @@ class _Input6State extends State<Input6> {
                             'dosen': dosenController.text,
                             'nilai': double.parse(nilaiController.text),
                             'jawaban': jawabanController.text,
-                          }).asStream();
+                          };
+                          ref.set(nilaiMhs).asStream();
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -118,19 +163,22 @@ class _Input6State extends State<Input6> {
                             ),
                           );
                         },
-                        child: Text('Tambah Data'),
+                        child: const Text('Tambah Data'),
                       ),
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) => pdfuploads(),
-                      //         ));
-                      //   },
-                      //   child: Text('Upload PDF'),
-                      // ),
                     ],
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color6.lightSecondaryColor,
+                    ),
+                    onPressed: () async {
+                      final path = await FlutterDocumentPicker.openDocument();
+                      print(path);
+                      File file = File(path!);
+                      firebase_storage.UploadTask? task =
+                          await uploadFile(file);
+                    },
+                    child: Text('Upload PDF'),
                   ),
                 ],
               ),
