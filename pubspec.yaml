@@ -58,6 +58,8 @@ dependencies:
   dio: ^5.1.2
   gallery_saver: ^2.3.2
   rename: ^2.1.1
+  downloads_path_provider: ^0.1.0
+  file_picker: ^5.3.1
   flutter_document_picker: ^5.2.3
 
 dev_dependencies:
@@ -86,9 +88,16 @@ flutter:
     - lib/images/glb.jpg
     - lib/images/aldira.png
     - lib/images/Sabila.jpg
+    - lib/images/Reyhan_F.jpg
+    - lib/images/Sri.jpg
+    - lib/images/LogoGrup2.jpg
     - lib/images/athaliqa.jpg
     - lib/images/fajar.png
     - lib/images/Andri.png
+    - lib/images/group7art.jpg
+    - lib/images/fotofeni.png
+    - lib/images/Raiyan_Adi.jpeg
+    - lib/images/Rima_Ananda.jpeg
     - lib/images/DewiNA.jpg
     - lib/images/rabby.jpg
     - lib/images/aldra.jpg
