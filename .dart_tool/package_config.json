@@ -213,7 +213,7 @@
     },
     {
       "name": "flutter",
-      "rootUri": "file:///B:/MobDev/flutter/packages/flutter",
+      "rootUri": "file:///D:/Apps/flutter_windows_3.10.2-stable/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -315,13 +315,13 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///B:/MobDev/flutter/packages/flutter_test",
+      "rootUri": "file:///D:/Apps/flutter_windows_3.10.2-stable/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///B:/MobDev/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///D:/Apps/flutter_windows_3.10.2-stable/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -567,7 +567,7 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///B:/MobDev/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///D:/Apps/flutter_windows_3.10.2-stable/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -650,7 +650,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-06-17T04:20:21.472047Z",
+  "generated": "2023-06-17T14:04:06.625879Z",
   "generator": "pub",
-  "generatorVersion": "3.0.1"
+  "generatorVersion": "3.0.2"
 }
