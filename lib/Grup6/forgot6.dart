@@ -2,8 +2,8 @@ import 'package:UAS_project/Grup6/color6.dart';
 import 'package:flutter/material.dart';
 import 'package:UAS_project/services/auth_service.dart';
 
-class forgot6 extends StatelessWidget {
-  const forgot6({Key? key}) : super(key: key);
+class Forgot6 extends StatelessWidget {
+  const Forgot6({Key? key}) : super(key: key);
 
   static const String _title = 'FORGOT PASSWORD';
 

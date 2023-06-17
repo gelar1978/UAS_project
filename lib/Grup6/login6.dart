@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, camel_case_types
 
-import 'package:UAS_project/1108780030/nav1108780030.dart';
 import 'package:UAS_project/Grup6/color6.dart';
 import 'package:UAS_project/Grup6/forgot6.dart';
+import 'package:UAS_project/Grup6/nav6.dart';
 import 'package:UAS_project/Grup6/signup6.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,6 +54,7 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  bool visibility = false;
   TextEditingController emailUser = TextEditingController();
   TextEditingController passUser = TextEditingController();
   User? userLog;
@@ -115,13 +116,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     children: [
                       TextField(
                         controller: passUser,
-                        decoration: const InputDecoration(
-                          icon: Icon(
+                        obscureText: !visibility,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  visibility = !visibility;
+                                },
+                              );
+                            },
+                            icon: Icon(
+                              visibility
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Color6.lightSecondaryColor,
+                            ),
+                          ),
+                          icon: const Icon(
                             Icons.key,
                             color: Colors.redAccent,
                           ),
                           hintText: "Password",
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                     ],
@@ -199,7 +216,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const forgot6(),
+                              builder: (context) => const Forgot6(),
                             ),
                           );
                         },
@@ -224,7 +241,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const signUp6(),
+                              builder: (context) => const SignUp6(),
                             ),
                           );
                         },

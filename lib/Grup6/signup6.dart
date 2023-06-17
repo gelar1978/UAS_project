@@ -9,14 +9,14 @@ import 'package:UAS_project/services/auth_service.dart';
 import 'package:UAS_project/services/firestore_service.dart';
 import 'package:get/get.dart';
 
-class signUp6 extends StatefulWidget {
-  const signUp6({Key? key}) : super(key: key);
+class SignUp6 extends StatefulWidget {
+  const SignUp6({Key? key}) : super(key: key);
 
   @override
-  _signUp6State createState() => _signUp6State();
+  _SignUp6State createState() => _SignUp6State();
 }
 
-class _signUp6State extends State<signUp6> {
+class _SignUp6State extends State<SignUp6> {
   // final themeController = Get.find<AppTheme>();
   final themeController = Get.put(AppTheme());
 
