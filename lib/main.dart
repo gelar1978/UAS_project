@@ -116,6 +116,13 @@ class _Hal1State extends State<Hal1> {
                       builder: (context) => login7(),
                     ),
                   );
+                } else if (NIM[index] == 1108780030) {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => hal1108780030new(),
+                    ),
+                  );
                   setState(() {
                     _message = result ?? '';
                   });

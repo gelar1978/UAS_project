@@ -108,6 +108,12 @@ flutter:
 
     # - lib/images/a_dot_ham.jpeg
 
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: lib/fonts/Montserrat-Medium.ttf
+        - asset: lib/fonts/Montserrat-Bold.ttf
+          weight: 700
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
