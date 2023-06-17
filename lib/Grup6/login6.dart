@@ -1,7 +1,14 @@
+// ignore_for_file: use_build_context_synchronously, camel_case_types
+
+import 'package:UAS_project/1108780030/nav1108780030.dart';
+import 'package:UAS_project/Grup6/color6.dart';
+import 'package:UAS_project/Grup6/forgot6.dart';
+import 'package:UAS_project/Grup6/signup6.dart';
+import 'package:UAS_project/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sign_button/sign_button.dart';
 
-//Tes pushh
 class login6 extends StatelessWidget {
   const login6({Key? key}) : super(key: key);
 
@@ -12,8 +19,13 @@ class login6 extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: _title,
+      theme: ThemeData(
+        primaryColor: Color6.lightPrimaryColor,
+        fontFamily: 'Montserrat',
+      ),
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: Color6.lightPrimaryColor,
           title: const Text(_title),
           actions: <Widget>[
             IconButton(
@@ -22,7 +34,6 @@ class login6 extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                // _showAlertDialog(context);
                 // Get.back();
                 Navigator.pop(context);
               },
@@ -43,16 +54,193 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  String _message = '';
-  User? user1;
+  TextEditingController emailUser = TextEditingController();
+  TextEditingController passUser = TextEditingController();
+  User? userLog;
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
-          children: <Widget>[],
+          children: <Widget>[
+            Column(
+              children: [
+                const Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 70),
+                    ),
+                  ],
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 50,
+                        bottom: 100,
+                      ),
+                    ),
+                    Text(
+                      "WELCOME",
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 60),
+                    ),
+                  ],
+                ),
+                Center(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: emailUser,
+                        decoration: const InputDecoration(
+                          icon: Icon(
+                            Icons.mail,
+                            color: Colors.redAccent,
+                          ),
+                          hintText: "E-Mail",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(5),
+                ),
+                Center(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: passUser,
+                        decoration: const InputDecoration(
+                          icon: Icon(
+                            Icons.key,
+                            color: Colors.redAccent,
+                          ),
+                          hintText: "Password",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+                Center(
+                  child: SizedBox(
+                    width: 250,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color6.lightSecondaryColor),
+                      onPressed: () async {
+                        try {
+                          final FirebaseAuth auth = FirebaseAuth.instance;
+                          UserCredential userCred =
+                              await auth.signInWithEmailAndPassword(
+                                  email: emailUser.text,
+                                  password: passUser.text);
+
+                          User? userLog = userCred.user;
+
+                          _showSnackbarReview(
+                              false, '${userLog!.email}Login Successful');
+                          final result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NavBarView(),
+                            ),
+                          );
+                          setState(() {});
+                        } catch (e) {
+                          _showSnackbarReview(true, "Invalid Password");
+                        }
+                      },
+                      child: const Text(
+                        "Sign In",
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(3),
+                ),
+                SignInButton(
+                  buttonSize: ButtonSize.medium,
+                  buttonType: ButtonType.google,
+                  onPressed: () async {
+                    await AuthService.googleSignIn(context);
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NavBarView(),
+                      ),
+                    );
+                    setState(
+                      () {},
+                    );
+                  },
+                ),
+                Center(
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const forgot6(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Forgot Password",
+                          style: TextStyle(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Center(
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const signUp6(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Create an Account",
+                          style: TextStyle(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
         ));
   }
 
@@ -62,7 +250,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       backgroundColor: !isError ? Colors.green : Colors.red,
       behavior: SnackBarBehavior.floating,
     );
-
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }
