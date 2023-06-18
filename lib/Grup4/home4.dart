@@ -19,6 +19,7 @@ class _home4State extends State<home4> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('HOME'),
+        backgroundColor: Colors.pinkAccent,
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -44,7 +45,7 @@ class _home4State extends State<home4> {
                   child: const Text(
                     'GRUP 4',
                     style: TextStyle(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 4, 13, 136),
                         fontWeight: FontWeight.w500,
                         fontSize: 20),
                   )),
