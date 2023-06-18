@@ -1,10 +1,8 @@
-import 'package:UAS_project/Grup1/write1.dart';
-import 'package:UAS_project/Grup1/baca1.dart';
-import 'package:UAS_project/Grup1/crud1.dart';
-import 'package:UAS_project/Grup1/hal1.dart';
+import 'package:UAS_project/Grup1/viewfile1.dart';
 import 'package:UAS_project/Grup1/home1.dart';
-import 'package:UAS_project/Grup1/read_edit1.dart';
-import 'package:UAS_project/Grup1/viewdata1.dart';
+import 'package:UAS_project/Grup1/input1.dart';
+import 'package:UAS_project/Grup1/view1.dart';
+import 'package:UAS_project/Grup1/update1.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:get/get.dart';
 // import 'package:haruka1_0/app/data/providers/auth_service.dart';
@@ -18,17 +16,17 @@ import '../controller/navbar_controller.dart';
 // import 'package:haruka1_0/app/modules/dh_har/views/dbhar_view.dart';
 // import 'package:haruka1_0/app/modules/navbar/controller/navbar_controller.dart';
 
-class NavBarView extends StatelessWidget {
-  NavBarView({Key? key}) : super(key: key);
+class NavBarView1 extends StatelessWidget {
+  NavBarView1({Key? key}) : super(key: key);
 
   final _controller = Get.put(NavBarController());
 
   final List<Widget> _listPage = [
     home1(),
-    hal1old(),
-    View1(),
+    baca1(),
+    update1(),
     crud1(),
-    baca1()
+    ImageView()
     // RE_1108780030(),
     // Tulis1108780030()
   ];
@@ -64,16 +62,20 @@ class NavBarView extends StatelessWidget {
         //   ],
         // ),
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.indigo[900],
           currentIndex: _controller.currentTab.value,
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.assignment), label: 'Page-1'),
-            BottomNavigationBarItem(icon: Icon(Icons.science), label: 'Page-2'),
-            BottomNavigationBarItem(icon: Icon(Icons.science), label: 'CRUD'),
+                icon: Icon(Icons.view_list_rounded), label: 'View Data'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.science), label: 'New CRUD'),
+                icon: Icon(Icons.system_update), label: 'Update Data'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_circle_outline_rounded),
+                label: 'Input Data'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.photo), label: 'View Photo'),
           ],
           onTap: (value) => _controller.pageChange(value),
         ),

@@ -14,23 +14,14 @@ class home1 extends StatefulWidget {
 class _home1State extends State<home1> {
   final TextEditingController _textEditingController = TextEditingController();
   String _message = '';
-  List<String> Nama = [
-    'RIFALDI WAHYU RAMADHAN',
-    'M RAIHAN AL GHIFARI',
-    'ILMAN FAHMAN'
-  ];
-  List<String> NIM = ['1101190144', '1101194477', '1101190142'];
-  List<String> Foto = [
-    'lib/images/rifaldiwr.jpg',
-    'lib/images/mraihanag.jpg',
-    'lib/images/ilman.jpg'
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff1D267D),
-        title: const Text('HOME'),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 41, 156, 37),
+        title: const Text('Home'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -45,17 +36,41 @@ class _home1State extends State<home1> {
           ),
         ],
       ),
-      body: ListView.builder(
-          itemCount: Nama.length,
-          itemBuilder: (context, int index) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: AssetImage(Foto[index]),
-              ),
-              title: Text(Nama[index]),
-              subtitle: Text(NIM[index]),
-            );
-          }),
+      body: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Center(
+          child: ListView(
+            children: <Widget>[
+              listMember('Rifaldi Wahyu Ramadhan', '1101190144',
+                  'lib/images/rifaldiwr.png'),
+              listMember('M Raihan Al Ghifari', '1101194477',
+                  'lib/images/mraihan.jpg'),
+              listMember('Ilman Fahman', '1101190142', 'lib/images/ilman.jpg'),
+            ],
+          ),
+        ),
+      ),
     );
   }
+}
+
+Widget listMember(String nama, String nim, photo) {
+  return Container(
+    padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+    child: ListTile(
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.white),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      tileColor: Colors.grey[100],
+      leading: CircleAvatar(
+        backgroundImage: AssetImage(photo),
+      ),
+      title: Text(
+        nama,
+        style: TextStyle(fontWeight: FontWeight.w500),
+      ),
+      subtitle: Text(nim),
+    ),
+  );
 }

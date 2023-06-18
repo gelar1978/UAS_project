@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
-
-import '../Grup1/nav1.dart';
+import '../Grup5/navbarview5.dart';
 
 class ImageUploads1 extends StatefulWidget {
   ImageUploads1({Key? key}) : super(key: key);
@@ -52,12 +50,17 @@ class _ImageUploads1State extends State<ImageUploads1> {
   Future uploadFile() async {
     if (_photo == null) return;
     final fileName = basename(_photo!.path);
-    final destination = 'files/$fileName';
+    final destination = 'Grup1/$fileName';
     print(destination);
     try {
       final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
-      // .child('file/');
       await ref.putFile(_photo!);
+      ScaffoldMessenger.of(context as BuildContext)
+          .showSnackBar(SnackBar(content: Text('Upload sangat sukses')));
+      Navigator.push(context as BuildContext,
+          MaterialPageRoute(builder: ((context) {
+        return NavBarView5();
+      })));
     } catch (e) {
       print('error occured');
     }
@@ -124,19 +127,13 @@ class _ImageUploads1State extends State<ImageUploads1> {
                         imgFromGallery();
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Upload sukses')));
-                        // Navigator.of(context).pop();
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return NavBarView();
-                        }));
+                        Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.photo_camera),
                     title: new Text('Camera'),
                     onTap: () {
                       imgFromCamera();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Upload sukses')));
                       Navigator.of(context).pop();
                     },
                   ),

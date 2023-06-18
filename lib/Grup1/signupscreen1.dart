@@ -7,7 +7,6 @@ import 'package:UAS_project/controller/theme_controller.dart';
 import 'package:UAS_project/model/user.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:UAS_project/services/firestore_service.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 // import 'package:terature/constant/color.dart';
 // import 'package:terature/controllers/theme_controller.dart';

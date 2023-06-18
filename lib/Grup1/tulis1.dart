@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:UAS_project/Grup2/nav2.dart';
+import 'package:UAS_project/Grup1/navbarview1.dart';
 // import 'main.dart';
 
 class addnote1 extends StatefulWidget {
@@ -25,7 +25,7 @@ class _addnote1State extends State<addnote1> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Grup1"),
+        title: Text("Add Grup1"),
         backgroundColor: Colors.indigo[900],
       ),
       body: Container(
@@ -67,7 +67,7 @@ class _addnote1State extends State<addnote1> {
                 }).asStream();
                 // Navigator.pop(context);
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => NavBarView()));
+                    context, MaterialPageRoute(builder: (_) => NavBarView1()));
               },
               child: Text(
                 "save",

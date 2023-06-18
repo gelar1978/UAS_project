@@ -1,21 +1,24 @@
+import 'package:UAS_project/Grup1/image_upload1.dart';
+import 'package:UAS_project/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:UAS_project/Grup1/tulis1.dart';
+import 'package:UAS_project/Grup5/tulis5.dart';
+import 'package:intl/intl.dart';
 
 // import 'addnote.dart';
 
-class baca1 extends StatefulWidget {
+class update1 extends StatefulWidget {
   @override
-  _baca1State createState() => _baca1State();
+  _update1State createState() => _update1State();
 }
 
-class _baca1State extends State<baca1> {
+class _update1State extends State<update1> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "todo app",
+      title: "Updatedata1",
       theme: ThemeData(
         primaryColor: Colors.greenAccent[700],
       ),
@@ -32,9 +35,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final fb = FirebaseDatabase.instance;
-  TextEditingController second = TextEditingController();
+  TextEditingController nama = TextEditingController();
+  TextEditingController nim = TextEditingController();
+  TextEditingController email = TextEditingController();
+  final tipeStatus = ['A', 'B'];
+  String? _selectedStatus = 'A';
+  TextEditingController matakuliah = TextEditingController();
 
-  TextEditingController third = TextEditingController();
   var l;
   var g;
   var k;
@@ -43,27 +50,39 @@ class _HomeState extends State<Home> {
     final ref = fb.ref().child('Grup1');
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo[900],
         onPressed: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (_) => addnote1(),
-            ),
-          );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ImageUploads1(),
+              ));
         },
-        child: Icon(
-          Icons.add,
-        ),
+        child: Icon(Icons.add_a_photo),
       ),
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
-          'View Data',
+          'UpdateData',
           style: TextStyle(
             fontSize: 20,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // _showAlertDialog(context);
+              AuthService.signOut();
+              Navigator.pop(context);
+            },
+          ),
+        ],
         backgroundColor: Colors.indigo[900],
       ),
       body: FirebaseAnimatedList(
@@ -76,7 +95,8 @@ class _HomeState extends State<Home> {
             var ss = event.snapshot;
           });
           g = v.replaceAll(
-              RegExp("{|}|subtitle: |title: "), ""); // webfun, subscribe
+              RegExp("{|}|email: |status: |nama: |nilai: |matakuliah: "),
+              ""); // webfun, subscribe
           g.trim();
 
           l = g.split(','); // [webfun,  subscribe}]
@@ -90,24 +110,47 @@ class _HomeState extends State<Home> {
               showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
+                  scrollable: true,
                   title: Container(
-                    decoration: BoxDecoration(border: Border.all()),
-                    child: TextField(
-                      controller: second,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: 'title',
-                      ),
-                    ),
-                  ),
-                  content: Container(
-                    decoration: BoxDecoration(border: Border.all()),
-                    child: TextField(
-                      controller: third,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: 'sub title',
-                      ),
+                    padding: EdgeInsets.fromLTRB(0, 2, 0, 2),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: nama,
+                          decoration: InputDecoration(
+                            hintText: 'nama',
+                          ),
+                        ),
+                        TextField(
+                          controller: email,
+                          decoration: InputDecoration(
+                            hintText: 'email',
+                          ),
+                        ),
+                        DropdownButtonFormField(
+                          value: _selectedStatus,
+                          items: tipeStatus
+                              .map((e) => DropdownMenuItem(
+                                    child: Text(e),
+                                    value: e,
+                                  ))
+                              .toList(),
+                          onChanged: (val) {
+                            setState(() {
+                              _selectedStatus = val as String;
+                            });
+                          },
+                          icon: const Icon(Icons.arrow_drop_down),
+                          decoration:
+                              InputDecoration(labelText: 'Pilih Status'),
+                        ),
+                        TextField(
+                          controller: nim,
+                          decoration: InputDecoration(
+                            hintText: 'nim',
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   actions: <Widget>[
@@ -161,7 +204,7 @@ class _HomeState extends State<Home> {
                     },
                   ),
                   title: Text(
-                    l[1],
+                    l[0],
                     // 'dd',
                     style: TextStyle(
                       fontSize: 18,
@@ -169,7 +212,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   subtitle: Text(
-                    l[0],
+                    l[3],
                     // 'dd',
 
                     style: TextStyle(
@@ -191,10 +234,16 @@ class _HomeState extends State<Home> {
 
 // Only update the name, leave the age and address!
     await ref1.update({
-      "title": second.text,
-      "subtitle": third.text,
+      'nama': nama.text,
+      'nim': nim.text,
+      'status': _selectedStatus,
+      'email': email.text,
+      'matakuliah': matakuliah.text,
     });
-    second.clear();
-    third.clear();
+    nama.clear();
+    nim.clear();
+    _selectedStatus = '';
+    email.clear();
+    matakuliah.clear();
   }
 }

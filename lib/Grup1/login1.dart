@@ -1,16 +1,16 @@
+import 'package:UAS_project/Grup1/navbarview1.dart';
 import 'package:UAS_project/Grup1/reset1.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:UAS_project/Grup1/nav1.dart';
-import 'package:UAS_project/Grup1/signup1.dart';
+import 'package:UAS_project/Grup1/signupscreen1.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:UAS_project/services/util.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:sign_button/sign_button.dart';
 
 class login1 extends StatelessWidget {
   const login1({Key? key}) : super(key: key);
 
-  static const String _title = 'LOGIN PAGE';
+  static const String _title = 'Login';
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,8 @@ class login1 extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xff1D267D),
+          centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 41, 153, 116),
           title: const Text(_title),
           actions: <Widget>[
             IconButton(
@@ -56,34 +57,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(30),
         child: ListView(
           children: <Widget>[
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(1),
-                child: const Text(
-                  'Kelompok 1',
-                  style: TextStyle(
-                      color: Color(0xff5C469C),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
-                )),
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(1),
-                child: const Text(
-                  ' ',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
-                )),
             CircleAvatar(
               radius: 60,
               child: Container(
-                height: 120,
-                width: 120,
+                height: 170,
+                width: 170,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("lib/images/logogrup1.jpg"),
@@ -95,18 +76,39 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
             Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(1),
                 child: const Text(
-                  'Sign in',
-                  style: TextStyle(fontSize: 20),
+                  'Welcome to Group 1',
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 25),
                 )),
+            SizedBox(
+              height: 5,
+              width: 5,
+            ),
+            Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(1),
+                child: const Text(
+                  'Please type your login',
+                  style: TextStyle(
+                      color: Colors.indigo,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15),
+                )),
+            SizedBox(
+              height: 5,
+              width: 5,
+            ),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: nameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'User Name',
+                  labelText: 'Email',
                 ),
               ),
             ),
@@ -121,83 +123,148 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => reset1(),
-                  ),
-                );
-                //forgot password screen
-              },
-              child: const Text(
-                'Forgot Password',
-                style: TextStyle(color: Color(0xff5C469C)),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.all(2),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => reset1(),
+                    ),
+                  );
+                  //forgot password screen
+                },
+                child: const Text(
+                  'Forgot Password?',
+                  style: TextStyle(color: Colors.indigo),
+                ),
               ),
+            ),
+            SizedBox(
+              height: 5,
+              width: 5,
             ),
             Container(
                 height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
                 child: ElevatedButton(
-                    child: const Text('Login'),
-                    onPressed: () async {
-                      // print("test");
-                      if (passwordController.text.isNotEmpty) {
-                        // final userLoggedIn =
-                        //     await SharedPrefService.getLoggedInUserData();
-
-                        debugPrint(hashPass(passwordController.text));
-                        // debugPrint(userLoggedIn.password);
-                        try {
-                          final FirebaseAuth _auth = FirebaseAuth.instance;
-                          UserCredential userCredential =
-                              await _auth.signInWithEmailAndPassword(
-                                  email: nameController.text,
-                                  password: passwordController.text);
-
-                          User? user1 = userCredential.user;
-
-                          _showSnackbarReview(false,
-                              user1!.email.toString() + ' Berhasil Masuk');
-                          // debugPrint(user1.toString() + " success123");
-                          final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NavBarView(),
-                            ),
-                          );
-                          setState(() {
-                            _message = result ?? '';
-                          });
-                        } catch (e) {
-                          _showSnackbarReview(true, 'Password Salah');
-
-                          debugPrint("gagal karena : " + e.toString());
-                        }
-                      } else {
-                        _showSnackbarReview(
-                            true, 'Kolom password tidak boleh kosong');
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1D267D)))),
-            SignInButton(
-              buttonSize: ButtonSize.small,
-              onPressed: () async {
-                await AuthService.googleSignIn(context);
-                // Navigator.pop(context);
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NavBarView(),
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(fontSize: 15),
                   ),
-                );
-                setState(() {
-                  _message = result ?? '';
-                });
-              },
-              buttonType: ButtonType.google,
+                  onPressed: () async {
+                    // print("test");
+                    if (passwordController.text.isNotEmpty) {
+                      // final userLoggedIn =
+                      //     await SharedPrefService.getLoggedInUserData();
+
+                      debugPrint(hashPass(passwordController.text));
+                      // debugPrint(userLoggedIn.password);
+                      try {
+                        final FirebaseAuth _auth = FirebaseAuth.instance;
+                        UserCredential userCredential =
+                            await _auth.signInWithEmailAndPassword(
+                                email: nameController.text,
+                                password: passwordController.text);
+
+                        User? user1 = userCredential.user;
+
+                        // user1 = await AuthService.signIn(
+                        //     nameController.text, passwordController.text);
+                        // user1 = hasil;
+                        _showSnackbarReview(
+                            false, user1!.email.toString() + ' Berhasil Masuk');
+                        // debugPrint(user1.toString() + " success123");
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NavBarView1(),
+                          ),
+                        );
+                        setState(() {
+                          _message = result ?? '';
+                        });
+                      } catch (e) {
+                        _showSnackbarReview(true, 'Password Salah');
+
+                        debugPrint("gagal karena : " + e.toString());
+                      }
+
+                      // if (hashPass(passwordController.text) ==
+                      //     userLoggedIn.password) {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => CreateNewPasswordView(
+                      //         currentPassword: passwordController.text,
+                      //         email: nameController.text,
+                      //       ),
+                      //     ),
+                      //   );
+                      // } else {
+                      //   _showSnackbarReview(true, 'Password tidak sesuai');
+                      // }
+                    } else {
+                      _showSnackbarReview(
+                          true, 'Kolom password tidak boleh kosong');
+                    }
+
+                    // AuthService.signIn(
+                    //     nameController.text, passwordController.text);
+                    // final result = await Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => hal1101194080old(),
+                    //   ),
+                    // );
+                    // setState(() {
+                    //   _message = result ?? '';
+                    // });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                    primary: Colors.indigo[900],
+                  ),
+                  // onPressed: () {
+                  //   print(nameController.text);
+                  //   print(passwordController.text);
+                  // },
+                )),
+            Container(
+                padding: EdgeInsets.fromLTRB(0, 3, 0, 2),
+                alignment: Alignment.center,
+                child: Text(
+                  'or',
+                  style: TextStyle(color: Colors.grey),
+                )),
+            // SignInButton(
+            //   btnText: 'Login',
+            //   buttonSize: ButtonSize.small,
+            //   onPressed: () {},
+            //   buttonType: ButtonType.microsoft,
+            // ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+              child: SignInButton(
+                buttonSize: ButtonSize.medium,
+                onPressed: () async {
+                  await AuthService.googleSignIn(context);
+                  // Navigator.pop(context);
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavBarView1(),
+                    ),
+                  );
+                  setState(() {
+                    _message = result ?? '';
+                  });
+                },
+                buttonType: ButtonType.google,
+              ),
             ),
             Row(
               children: <Widget>[
@@ -205,7 +272,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 TextButton(
                   child: const Text(
                     'Sign Up',
-                    style: TextStyle(color: Color(0xff5C469C), fontSize: 20),
+                    style: TextStyle(
+                        fontSize: 17, color: Color.fromARGB(255, 66, 206, 124)),
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -227,7 +295,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _showSnackbarReview(bool isError, String message) {
     final snackbar = SnackBar(
       content: Text(message),
-      backgroundColor: !isError ? Colors.green : Colors.red,
+      backgroundColor:
+          !isError ? Colors.green : Color.fromARGB(255, 168, 151, 150),
       behavior: SnackBarBehavior.floating,
     );
 

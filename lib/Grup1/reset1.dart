@@ -7,7 +7,7 @@ import 'package:UAS_project/services/auth_service.dart';
 class reset1 extends StatelessWidget {
   const reset1({Key? key}) : super(key: key);
 
-  static const String _title = 'FORGOT PASSWORD';
+  static const String _title = 'ForgotPassword';
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,10 @@ class reset1 extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(
-            backgroundColor: Color(0xff1D267D), title: const Text(_title)),
+          centerTitle: true,
+          title: const Text(_title),
+          backgroundColor: Color.fromARGB(255, 62, 201, 155),
+        ),
         body: const MyStatefulWidget(),
       ),
     );
@@ -38,29 +41,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(30),
         child: ListView(
           children: <Widget>[
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(1),
-                child: const Text(
-                  'Kelompok 1',
-                  style: TextStyle(
-                      color: Color(0xff5C469C),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
-                )),
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(1),
-                child: const Text(
-                  ' ',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
-                )),
+            SizedBox(height: 20),
             CircleAvatar(
               radius: 80,
               child: Container(
@@ -75,6 +59,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
@@ -92,27 +77,76 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
+            // Container(
+            //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            //   child: TextField(
+            //     obscureText: true,
+            //     controller: passwordController,
+            //     decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: 'Password',
+            //     ),
+            //   ),
+            // ),
+            // Container(
+            //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            //   child: TextField(
+            //     obscureText: true,
+            //     controller: passwordController2,
+            //     decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: 'Confirmed Password',
+            //     ),
+            //   ),
+            // ),
+            // TextButton(
+            //   onPressed: () {
+            //     //forgot password screen
+            //   },
+            //   child: const Text(
+            //     'Forgot Password',
+            //   ),
+            // ),
+            SizedBox(height: 120),
             Container(
                 height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
                 child: ElevatedButton(
-                    child: const Text('Change'),
-                    onPressed: () async {
-                      AuthService.resetPassword(nameController.text);
-                      debugPrint(
-                          "Pesan telah dikirim ke email, silakan ubah password di link yang dikirimkan ke email");
-                      _showSnackbarReview(false,
-                          "Pesan telah dikirim ke email, silakan ubah password di link yang dikirimkan ke email");
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1D267D)))),
+                  child: const Text('Change'),
+                  onPressed: () async {
+                    AuthService.resetPassword(nameController.text);
+                    debugPrint(
+                        "Pesan telah dikirim ke email, silakan ubah password di link yang dikirimkan ke email");
+                    _showSnackbarReview(false,
+                        "Pesan telah dikirim ke email, silakan ubah password di link yang dikirimkan ke email");
+
+                    // Navigator.pop(context);
+                    // final result = await Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => hal1108780030old(),
+                    //   ),
+                    // );
+                    // setState(() {
+                    //   _message = result ?? '';
+                    // });
+                  },
+                  // onPressed: () {
+                  //   print(nameController.text);
+                  //   print(passwordController.text);
+                  // },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40)),
+                      primary: Colors.indigo[900]),
+                )),
             Row(
               children: <Widget>[
                 const Text('Does not have account?'),
                 TextButton(
                   child: const Text(
                     'Sign in',
-                    style: TextStyle(color: Color(0xff5C469C), fontSize: 20),
+                    style: TextStyle(fontSize: 17, color: Colors.indigo),
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -121,6 +155,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         builder: (context) => login1(),
                       ),
                     );
+                    // Navigator.pop(context);
+                    //signin screen
                   },
                 )
               ],

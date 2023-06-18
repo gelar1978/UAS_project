@@ -1,15 +1,10 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 // import 'package:firebase_download_example/api/firebase_api.dart';
 // import 'package:firebase_download_example/model/firebase_file.dart';
 // import 'package:firebase_download_example/page/image_page.dart';
 import 'package:flutter/material.dart';
-import 'package:UAS_project/Grup1/nav1.dart';
-import 'package:UAS_project/api/firebase_api.dart';
+import 'package:UAS_project/Grup1/navbarview1.dart';
 import 'package:UAS_project/controller/image_view.dart';
 import 'package:UAS_project/model/firebase_file.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -23,8 +18,8 @@ import 'package:path_provider/path_provider.dart';
 //   runApp(MyApp());
 // }
 
-class ImageView1 extends StatelessWidget {
-  static final String title = 'Firebase Download';
+class ImageView extends StatelessWidget {
+  static final String title = 'Image List';
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -48,7 +43,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     // futureFiles = FirebaseStorage.instance.ref('/files').listAll();
-    futureFiles = FirebaseStorage.instance.ref('Grup1/').listAll();
+    futureFiles = FirebaseStorage.instance.ref('/Grup1').listAll();
 // gs://mobapp-2223-2.appspot.com/files/kolaborasi 1.png/file
     // futureFiles = FirebaseApi.listAll('files/');
   }
@@ -56,27 +51,10 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(ImageView1.title),
+          backgroundColor: Colors.indigo[900],
+          title: Text(ImageView.title),
           centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                // Navigator.of(context).pop();
-                // Navigator.of(context).canPop();
-                // Navigator.of(context, rootNavigator: true).pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return NavBarView();
-                }));
-                // Navigator.pop(context);
-              },
-            ),
-          ],
         ),
-        // body: FutureBuilder<List<FirebaseFile>>(
         body: FutureBuilder<ListResult>(
           future: futureFiles,
           builder: (context, snapshot) {
@@ -166,10 +144,6 @@ class _MainPageState extends State<MainPage> {
       );
 
   Future downloadFile(int index, Reference ref) async {
-    // final dir = await getApplicationDocumentsDirectory();
-    // final file = File('${dir.path}/${ref.name}');
-    // await ref.writeToFile(file);
-// await Dio().
     final url = await ref.getDownloadURL();
     final tempdir = await getTemporaryDirectory();
     final path = '${tempdir.path}/${ref.name}';
@@ -192,7 +166,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget buildHeader(int length) => ListTile(
-        tileColor: Colors.blue,
+        tileColor: Colors.indigoAccent,
         leading: Container(
           width: 52,
           height: 52,
