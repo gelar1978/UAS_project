@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
-import '../Grup5/navbarview5.dart';
+import '../Grup1/navbarview1.dart';
 
 class ImageUploads1 extends StatefulWidget {
   ImageUploads1({Key? key}) : super(key: key);
