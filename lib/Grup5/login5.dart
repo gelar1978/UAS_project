@@ -15,6 +15,7 @@ class login5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
       title: _title,
       home: Scaffold(
@@ -57,7 +58,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
         child: ListView(
           children: <Widget>[
             CircleAvatar(
@@ -74,6 +75,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 2,
+              width: 2,
+            ),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(1),
@@ -84,10 +89,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       fontWeight: FontWeight.w500,
                       fontSize: 25),
                 )),
-            SizedBox(
-              height: 5,
-              width: 5,
-            ),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(1),
@@ -99,8 +100,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       fontSize: 15),
                 )),
             SizedBox(
-              height: 5,
-              width: 5,
+              height: 2,
+              width: 2,
             ),
             Container(
               padding: const EdgeInsets.all(10),
@@ -234,7 +235,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   // },
                 )),
             Container(
-                padding: EdgeInsets.fromLTRB(0, 3, 0, 2),
+                padding: EdgeInsets.fromLTRB(0, 2, 0, 1),
                 alignment: Alignment.center,
                 child: Text(
                   'or',

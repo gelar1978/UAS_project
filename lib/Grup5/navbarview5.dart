@@ -62,7 +62,9 @@ class NavBarView5 extends StatelessWidget {
         //   ],
         // ),
         bottomNavigationBar: BottomNavigationBar(
+          selectedFontSize: 12,
           selectedItemColor: Colors.indigo[900],
+          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
           currentIndex: _controller.currentTab.value,
           type: BottomNavigationBarType.fixed,
           items: const [

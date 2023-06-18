@@ -20,7 +20,8 @@ class _update5State extends State<update5> {
     return MaterialApp(
       title: "Updatedata5",
       theme: ThemeData(
-        primaryColor: Colors.greenAccent[700],
+        fontFamily: 'Poppins',
+        primaryColor: Colors.indigo[900],
       ),
       home: Home(),
       debugShowCheckedModeBanner: false,
@@ -234,7 +235,7 @@ class _HomeState extends State<Home> {
                   trailing: IconButton(
                     icon: Icon(
                       Icons.delete,
-                      color: Color.fromARGB(255, 255, 0, 0),
+                      color: Color.fromARGB(255, 235, 26, 11),
                     ),
                     onPressed: () {
                       ref.child(snapshot.key!).remove();
@@ -253,7 +254,7 @@ class _HomeState extends State<Home> {
                     // 'dd',
 
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
