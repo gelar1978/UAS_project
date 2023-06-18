@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:downloads_path_provider/downloads_path_provider.dart';  
 import 'package:dio/dio.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -129,18 +128,18 @@ class _MainPageState extends State<MainPage> {
   final url = await ref.getDownloadURL();
 
   // Mendapatkan direktori download pada perangkat
-  final downloadsDir = await DownloadsPathProvider.downloadsDirectory;
+  // final downloadsDir = await DownloadsPathProvider.downloadsDirectory;
 
   // Mendapatkan path file yang akan disimpan
-  final filePath = '${downloadsDir.path}/${ref.name}';
+  // final filePath = '${downloadsDir.path}/${ref.name}';
 
   // Mendownload file dan menyimpannya ke path yang ditentukan
-  await Dio().download(url, filePath, onReceiveProgress: (received, total) {
-    double progress = received / total;
-    setState(() {
-      downloadProgress[index] = progress;
-    });
-  });
+  // await Dio().download(url, filePath, onReceiveProgress: (received, total) {
+  //   double progress = received / total;
+  //   setState(() {
+  //     downloadProgress[index] = progress;
+  //   });
+  // });
 
   ScaffoldMessenger.of(context)
       .showSnackBar(SnackBar(content: Text('Downloaded ${ref.name}')));
