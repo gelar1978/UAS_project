@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:UAS_project/Grup6/color6.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,6 +11,7 @@ class ViewPDF extends StatefulWidget {
 
 class _ViewPDFState extends State<ViewPDF> {
   late Future<ListResult> futureFiles;
+  Map<int, double> downloadProgress = {};
 
   @override
   void initState() {
@@ -37,15 +37,22 @@ class _ViewPDFState extends State<ViewPDF> {
               itemCount: files.length,
               itemBuilder: (context, index) {
                 final file = files[index];
+                double? progress = downloadProgress[index];
 
                 return ListTile(
                   title: Text(file.name),
+                  subtitle: progress != null
+                      ? LinearProgressIndicator(
+                          value: progress,
+                          backgroundColor: Color6.lightSecondaryColor,
+                        )
+                      : null,
                   trailing: IconButton(
                     icon: const Icon(
                       Icons.download,
                       color: Color6.lightSecondaryColor,
                     ),
-                    onPressed: () => downloadFile(file),
+                    onPressed: () => downloadFile(index, file),
                   ),
                 );
               },
@@ -55,20 +62,30 @@ class _ViewPDFState extends State<ViewPDF> {
               child: Text('Error'),
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center();
           }
         },
       ),
     );
   }
 
-  Future downloadFile(Reference ref) async {
+  Future downloadFile(int index, Reference ref) async {
     final url = await ref.getDownloadURL();
     final dir = await getApplicationDocumentsDirectory();
     final path = '${dir.path}/${ref.name}';
-    await Dio().download(url, path);
+    print(url);
+    print(dir);
+    print(path);
+    await Dio().download(
+      url,
+      path,
+      onReceiveProgress: (received, total) {
+        double progress = received / total;
+        setState(() {
+          downloadProgress[index] = progress;
+        });
+      },
+    );
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
