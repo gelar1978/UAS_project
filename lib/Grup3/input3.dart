@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:UAS_project/Grup3/fileupload.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -163,6 +164,16 @@ class _input3State extends State<input3> {
               ],
             ),
           ),
+          TextButton(
+              onPressed: (() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UploadPDFScreen(),
+                  ),
+                );
+              }),
+              child: Text("Upload Pdf")),
         ],
       ),
     );
