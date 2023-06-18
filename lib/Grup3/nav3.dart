@@ -23,10 +23,10 @@ class NavBarView extends StatelessWidget {
 
   final List<String> _listTitleAppBar = const [
     'Home',
-    'Input Data',
-    'View File',
-    'Update Data',
+    'Input Data'
+        'Update Data',
     'View Data',
+    'View File',
   ];
 
   @override
@@ -41,11 +41,11 @@ class NavBarView extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: Icon(Icons.assignment), label: 'Input Data'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.science), label: 'View File'),
-            BottomNavigationBarItem(
                 icon: Icon(Icons.science), label: 'Update Data'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.science), label: 'View Data'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.science), label: 'View File'),
           ],
           onTap: (value) => _controller.pageChange(value),
         ),

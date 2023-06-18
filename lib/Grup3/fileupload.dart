@@ -30,7 +30,7 @@ class _UploadPDFScreenState extends State<UploadPDFScreen> {
 
     String fileName = path.basename(file.path);
     firebase_storage.Reference storageReference =
-        firebase_storage.FirebaseStorage.instance.ref().child(fileName);
+        firebase_storage.FirebaseStorage.instance.ref('grup3/$fileName');
     firebase_storage.UploadTask uploadTask = storageReference.putFile(file);
     firebase_storage.TaskSnapshot taskSnapshot =
         await uploadTask.whenComplete(() => null);
