@@ -59,7 +59,7 @@ class _ImageUploads1State extends State<ImageUploads1> {
           .showSnackBar(SnackBar(content: Text('Upload sangat sukses')));
       Navigator.push(context as BuildContext,
           MaterialPageRoute(builder: ((context) {
-        return NavBarView5();
+        return NavBarView1();
       })));
     } catch (e) {
       print('error occured');
