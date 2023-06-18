@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:UAS_project/Grup5/login5.dart';
+import 'package:UAS_project/Grup1/login1.dart';
 import 'package:UAS_project/services/auth_service.dart';
 
 // void main() => runApp(const MyApp());
 
-class reset5 extends StatelessWidget {
-  const reset5({Key? key}) : super(key: key);
+class reset1 extends StatelessWidget {
+  const reset1({Key? key}) : super(key: key);
 
   static const String _title = 'ForgotPassword';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
       title: _title,
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text(_title),
-          backgroundColor: Colors.indigo[900],
+          backgroundColor: Color.fromARGB(255, 62, 201, 155),
         ),
         body: const MyStatefulWidget(),
       ),
@@ -53,7 +52,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 width: 170,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("lib/images/logo_grup5.jpg"),
+                    image: AssetImage("lib/images/logogrup1.jpg"),
                     fit: BoxFit.fitWidth,
                   ),
                   shape: BoxShape.circle,
@@ -113,7 +112,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
                 child: ElevatedButton(
-                  child: const Text('Send to Email'),
+                  child: const Text('Change'),
                   onPressed: () async {
                     AuthService.resetPassword(nameController.text);
                     debugPrint(
@@ -153,7 +152,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => login5(),
+                        builder: (context) => login1(),
                       ),
                     );
                     // Navigator.pop(context);

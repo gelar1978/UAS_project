@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 // import 'package:firebase_download_example/model/firebase_file.dart';
 // import 'package:firebase_download_example/page/image_page.dart';
 import 'package:flutter/material.dart';
-import 'package:UAS_project/Grup5/navbarview5.dart';
+import 'package:UAS_project/Grup1/navbarview1.dart';
 import 'package:UAS_project/controller/image_view.dart';
 import 'package:UAS_project/model/firebase_file.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -25,8 +25,7 @@ class ImageView extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: title,
-        theme:
-            ThemeData(primaryColor: Colors.indigo[900], fontFamily: 'Poppins'),
+        theme: ThemeData(primarySwatch: Colors.blue),
         home: MainPage(),
       );
 }
@@ -44,7 +43,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     // futureFiles = FirebaseStorage.instance.ref('/files').listAll();
-    futureFiles = FirebaseStorage.instance.ref('/Grup5').listAll();
+    futureFiles = FirebaseStorage.instance.ref('/Grup1').listAll();
 // gs://mobapp-2223-2.appspot.com/files/kolaborasi 1.png/file
     // futureFiles = FirebaseApi.listAll('files/');
   }

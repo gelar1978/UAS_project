@@ -3,23 +3,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:UAS_project/Grup5/tulis5.dart';
+import 'package:UAS_project/Grup1/tulis1.dart';
 
 // import 'addnote.dart';
 
-class baca5 extends StatefulWidget {
+class baca1 extends StatefulWidget {
   @override
-  _baca5State createState() => _baca5State();
+  _baca1State createState() => _baca1State();
 }
 
-class _baca5State extends State<baca5> {
+class _baca1State extends State<baca1> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Viewdata",
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        primaryColor: Colors.indigo[900],
+        primaryColor: Colors.greenAccent[700],
       ),
       home: Home(),
       debugShowCheckedModeBanner: false,
@@ -42,7 +41,7 @@ class _HomeState extends State<Home> {
   var k;
   @override
   Widget build(BuildContext context) {
-    final ref = fb.ref().child('Grup5');
+    final ref = fb.ref().child('Grup1');
 
     return Scaffold(
       appBar: AppBar(
@@ -78,7 +77,7 @@ class _HomeState extends State<Home> {
             var ss = event.snapshot;
           });
           g = v.replaceAll(
-              RegExp("{|}|email: |jenis: |nama: |nilai: |skema: |tanggal: "),
+              RegExp("{|}|email: |status: |nama: |nilai: |matakuliah: "),
               ""); // webfun, subscribe
           g.trim();
 
@@ -102,25 +101,22 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(l[0],
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
                   SizedBox(
                     height: 5,
                   ),
                   Text('Nilai: ' + l[1],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
-                  Text('Skema: ' + l[2],
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                  Text('Status: ' + l[2],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
-                  Text('Jenis Kelamin: ' + l[3],
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                  Text('MataKuliah: ' + l[3],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
-                  Text('Tanggal Lahir: ' + l[4],
-                      style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
                   Text('Email: ' + l[5],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
                 ],
               ),
             ),
@@ -131,7 +127,7 @@ class _HomeState extends State<Home> {
   }
 
   upd() async {
-    DatabaseReference ref1 = FirebaseDatabase.instance.ref("Grup5/$k");
+    DatabaseReference ref1 = FirebaseDatabase.instance.ref("Grup1/$k");
 
 // Only update the name, leave the age and address!
     await ref1.update({

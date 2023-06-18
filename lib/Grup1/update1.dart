@@ -1,4 +1,4 @@
-import 'package:UAS_project/Grup5/image_upload5.dart';
+import 'package:UAS_project/Grup1/image_upload1.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -9,19 +9,18 @@ import 'package:intl/intl.dart';
 
 // import 'addnote.dart';
 
-class update5 extends StatefulWidget {
+class update1 extends StatefulWidget {
   @override
-  _update5State createState() => _update5State();
+  _update1State createState() => _update1State();
 }
 
-class _update5State extends State<update5> {
+class _update1State extends State<update1> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Updatedata5",
+      title: "Updatedata1",
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        primaryColor: Colors.indigo[900],
+        primaryColor: Colors.greenAccent[700],
       ),
       home: Home(),
       debugShowCheckedModeBanner: false,
@@ -37,20 +36,18 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final fb = FirebaseDatabase.instance;
   TextEditingController nama = TextEditingController();
+  TextEditingController nim = TextEditingController();
   TextEditingController email = TextEditingController();
-  final jenisKelamin = ['Pria', 'Wanita'];
-  String? _selectedJenis = 'Pria';
-  TextEditingController nilai = TextEditingController();
-  final tipeSkema = ['1', '2', '3'];
-  String? _selectedSkema = '1';
-  TextEditingController tanggal = TextEditingController();
+  final tipeStatus = ['A', 'B'];
+  String? _selectedStatus = 'A';
+  TextEditingController matakuliah = TextEditingController();
 
   var l;
   var g;
   var k;
   @override
   Widget build(BuildContext context) {
-    final ref = fb.ref().child('Grup5');
+    final ref = fb.ref().child('Grup1');
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -60,7 +57,7 @@ class _HomeState extends State<Home> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => ImageUploads5(),
+                builder: (_) => ImageUploads1(),
               ));
         },
         child: Icon(Icons.add_a_photo),
@@ -98,7 +95,7 @@ class _HomeState extends State<Home> {
             var ss = event.snapshot;
           });
           g = v.replaceAll(
-              RegExp("{|}|email: |jenis: |nama: |nilai: |tanggal: "),
+              RegExp("{|}|email: |status: |nama: |nilai: |matakuliah: "),
               ""); // webfun, subscribe
           g.trim();
 
@@ -131,8 +128,8 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         DropdownButtonFormField(
-                          value: _selectedJenis,
-                          items: jenisKelamin
+                          value: _selectedStatus,
+                          items: tipeStatus
                               .map((e) => DropdownMenuItem(
                                     child: Text(e),
                                     value: e,
@@ -140,54 +137,19 @@ class _HomeState extends State<Home> {
                               .toList(),
                           onChanged: (val) {
                             setState(() {
-                              _selectedJenis = val as String;
+                              _selectedStatus = val as String;
                             });
                           },
                           icon: const Icon(Icons.arrow_drop_down),
                           decoration:
-                              InputDecoration(labelText: 'Jenis Kelamin'),
+                              InputDecoration(labelText: 'Pilih Status'),
                         ),
                         TextField(
-                          controller: nilai,
+                          controller: nim,
                           decoration: InputDecoration(
-                            hintText: 'nilai',
+                            hintText: 'nim',
                           ),
                         ),
-                        DropdownButtonFormField(
-                          value: _selectedSkema,
-                          items: tipeSkema
-                              .map((e) => DropdownMenuItem(
-                                    child: Text(e),
-                                    value: e,
-                                  ))
-                              .toList(),
-                          onChanged: (skema) {
-                            setState(() {
-                              _selectedSkema = skema as String;
-                            });
-                          },
-                          icon: const Icon(Icons.arrow_drop_down),
-                          decoration: InputDecoration(labelText: 'Pilih Skema'),
-                        ),
-                        TextField(
-                            keyboardType: TextInputType.none,
-                            controller: tanggal,
-                            decoration:
-                                InputDecoration(labelText: 'Pilih Tanggal'),
-                            onTap: () async {
-                              DateTime? pickeddate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2100));
-
-                              if (pickeddate != null) {
-                                setState(() {
-                                  tanggal.text = DateFormat('dd-MM-yyyy')
-                                      .format(pickeddate);
-                                });
-                              }
-                            }),
                       ],
                     ),
                   ),
@@ -235,7 +197,7 @@ class _HomeState extends State<Home> {
                   trailing: IconButton(
                     icon: Icon(
                       Icons.delete,
-                      color: Color.fromARGB(255, 235, 26, 11),
+                      color: Color.fromARGB(255, 255, 0, 0),
                     ),
                     onPressed: () {
                       ref.child(snapshot.key!).remove();
@@ -254,7 +216,7 @@ class _HomeState extends State<Home> {
                     // 'dd',
 
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -268,22 +230,20 @@ class _HomeState extends State<Home> {
   }
 
   upd() async {
-    DatabaseReference ref1 = FirebaseDatabase.instance.ref("Grup5/$k");
+    DatabaseReference ref1 = FirebaseDatabase.instance.ref("Grup1/$k");
 
 // Only update the name, leave the age and address!
     await ref1.update({
       'nama': nama.text,
+      'nim': nim.text,
+      'status': _selectedStatus,
       'email': email.text,
-      'jenis': _selectedJenis,
-      'nilai': double.parse(nilai.text),
-      'skema': _selectedSkema,
-      'tanggal': tanggal.text,
+      'matakuliah': matakuliah.text,
     });
     nama.clear();
+    nim.clear();
+    _selectedStatus = '';
     email.clear();
-    _selectedJenis = '';
-    nilai.clear();
-    _selectedSkema = '';
-    tanggal.clear();
+    matakuliah.clear();
   }
 }

@@ -115,6 +115,10 @@ flutter:
     - lib/images/fajar.JPG
     - lib/images/Ez.png
     - lib/images/logo_grup5.jpg
+    - lib/images/rifaldiwr.png
+    - lib/images/logogrup1.jpg
+    - lib/images/ilman.jpg
+    - lib/images/mraihan.jpg
     - assets/google_logo.svg
     - assets/facebook_logo.svg
 
@@ -126,6 +130,10 @@ flutter:
         - asset: lib/fonts/Montserrat-Medium.ttf
         - asset: lib/fonts/Montserrat-Bold.ttf
           weight: 700
+    
+    - family: Poppins
+      fonts:
+        - asset: lib/fonts/Poppins-Regular.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

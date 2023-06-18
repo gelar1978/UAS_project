@@ -1,8 +1,8 @@
-import 'package:UAS_project/Grup5/viewfile5.dart';
-import 'package:UAS_project/Grup5/home5.dart';
-import 'package:UAS_project/Grup5/input5.dart';
-import 'package:UAS_project/Grup5/view5.dart';
-import 'package:UAS_project/Grup5/update5.dart';
+import 'package:UAS_project/Grup1/viewfile1.dart';
+import 'package:UAS_project/Grup1/home1.dart';
+import 'package:UAS_project/Grup1/input1.dart';
+import 'package:UAS_project/Grup1/view1.dart';
+import 'package:UAS_project/Grup1/update1.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:get/get.dart';
 // import 'package:haruka1_0/app/data/providers/auth_service.dart';
@@ -16,16 +16,16 @@ import '../controller/navbar_controller.dart';
 // import 'package:haruka1_0/app/modules/dh_har/views/dbhar_view.dart';
 // import 'package:haruka1_0/app/modules/navbar/controller/navbar_controller.dart';
 
-class NavBarView5 extends StatelessWidget {
-  NavBarView5({Key? key}) : super(key: key);
+class NavBarView1 extends StatelessWidget {
+  NavBarView1({Key? key}) : super(key: key);
 
   final _controller = Get.put(NavBarController());
 
   final List<Widget> _listPage = [
-    home5(),
-    baca5(),
-    update5(),
-    crud5(),
+    home1(),
+    baca1(),
+    update1(),
+    crud1(),
     ImageView()
     // RE_1108780030(),
     // Tulis1108780030()
@@ -62,9 +62,7 @@ class NavBarView5 extends StatelessWidget {
         //   ],
         // ),
         bottomNavigationBar: BottomNavigationBar(
-          selectedFontSize: 12,
           selectedItemColor: Colors.indigo[900],
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
           currentIndex: _controller.currentTab.value,
           type: BottomNavigationBarType.fixed,
           items: const [

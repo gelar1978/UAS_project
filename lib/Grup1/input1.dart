@@ -1,37 +1,32 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:UAS_project/Grup5/navbarview5.dart';
-import 'package:UAS_project/Grup5/image_upload5.dart';
+import 'package:UAS_project/Grup1/navbarview1.dart';
+import 'package:UAS_project/Grup1/image_upload1.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
 
-class crud5 extends StatefulWidget {
+class crud1 extends StatefulWidget {
   @override
-  _crud5State createState() => _crud5State();
+  _crud1State createState() => _crud1State();
 }
 
-class _crud5State extends State<crud5> {
-  final databaseReference = FirebaseDatabase.instance.ref('Grup5');
+class _crud1State extends State<crud1> {
+  final databaseReference = FirebaseDatabase.instance.ref('Grup1');
   final fb = FirebaseDatabase.instance;
   List<Data> dataList = [];
   _myJenisState() {
-    _selectedJenis = jenisKelamin[0];
-  }
-
-  _mySkemaState() {
-    _selectedSkema = tipeSkema[0];
+    _selectedStatus = tipeStatus[0];
   }
 
   final namaController = TextEditingController();
+  final nimController = TextEditingController();
   final emailController = TextEditingController();
-  final jenisKelamin = ['Pria', 'Wanita'];
-  String? _selectedJenis = 'Pria';
+  final tipeStatus = ['A', 'B'];
+  String? _selectedStatus = '1';
   final nilaiController = TextEditingController();
-  final tipeSkema = ['1', '2', '3'];
-  String? _selectedSkema = '1';
-  final tanggalController = TextEditingController();
+  final matakuliahControler = TextEditingController();
   //Upload Foto
 
   void readData() async {
@@ -45,17 +40,16 @@ class _crud5State extends State<crud5> {
     });
   }
 
-  void writeData(String nama, String email, String jenis, double nilai,
-      String skema, String tanggal) {
+  void writeData(
+      String nama, String nim, String email, String status, String matakuliah) {
     Random random = Random();
     String num = random.nextInt(50000000).toString();
     databaseReference.child(num).set({
       'nama': nama,
+      'nim': nim,
       'email': email,
-      'jenis': jenis,
-      'nilai': nilai,
-      'skema': skema,
-      'tanggal': tanggal,
+      'status': status,
+      'matakuliah': matakuliah,
     }).asStream();
   }
 
@@ -64,7 +58,7 @@ class _crud5State extends State<crud5> {
     var rng = Random();
     var k = rng.nextInt(10000);
 
-    final ref = fb.ref().child('Grup5/$k');
+    final ref = fb.ref().child('Grup1/$k');
 
     return Scaffold(
       appBar: AppBar(
@@ -104,12 +98,16 @@ class _crud5State extends State<crud5> {
                     decoration: InputDecoration(labelText: 'Nama'),
                   ),
                   TextField(
+                    controller: nimController,
+                    decoration: InputDecoration(labelText: 'NIM'),
+                  ),
+                  TextField(
                     controller: emailController,
                     decoration: InputDecoration(labelText: 'Email'),
                   ),
                   DropdownButtonFormField(
-                    value: _selectedJenis,
-                    items: jenisKelamin
+                    value: _selectedStatus,
+                    items: tipeStatus
                         .map((e) => DropdownMenuItem(
                               child: Text(e),
                               value: e,
@@ -117,55 +115,18 @@ class _crud5State extends State<crud5> {
                         .toList(),
                     onChanged: (val) {
                       setState(() {
-                        _selectedJenis = val as String;
+                        _selectedStatus = val as String;
                       });
                     },
                     icon: const Icon(Icons.arrow_drop_down),
-                    decoration: InputDecoration(labelText: 'Jenis Kelamin'),
+                    decoration: InputDecoration(labelText: 'Pilih Status'),
                   ),
                   TextField(
-                    controller: nilaiController,
-                    decoration: InputDecoration(labelText: 'Nilai'),
+                    controller: matakuliahControler,
+                    decoration: InputDecoration(labelText: 'Mata Kuliah'),
                   ),
-                  DropdownButtonFormField(
-                    value: _selectedSkema,
-                    items: tipeSkema
-                        .map((e) => DropdownMenuItem(
-                              child: Text(e),
-                              value: e,
-                            ))
-                        .toList(),
-                    onChanged: (skema) {
-                      setState(() {
-                        _selectedSkema = skema as String;
-                      });
-                    },
-                    icon: const Icon(Icons.arrow_drop_down),
-                    decoration: InputDecoration(labelText: 'Pilih Skema'),
-                  ),
-                  //Tanggal
-                  TextField(
-                      keyboardType: TextInputType.none,
-                      controller: tanggalController,
-                      decoration: InputDecoration(labelText: 'Pilih Tanggal'),
-                      onTap: () async {
-                        DateTime? pickeddate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2100));
 
-                        if (pickeddate != null) {
-                          setState(() {
-                            tanggalController.text =
-                                DateFormat('dd-MM-yyyy').format(pickeddate);
-                          });
-                        }
-                      }),
-
-                  SizedBox(
-                    height: 20,
-                  ),
+                  //Upload Foto
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -175,14 +136,13 @@ class _crud5State extends State<crud5> {
                         onPressed: () {
                           ref.set({
                             'nama': namaController.text,
-                            'email': emailController.text,
-                            'jenis': _selectedJenis,
-                            'nilai': double.parse(nilaiController.text),
-                            'skema': _selectedSkema,
-                            'tanggal': tanggalController.text,
+                            'nim': emailController.text,
+                            'email': emailController,
+                            'status': _selectedStatus,
+                            'matakuliah': matakuliahControler,
                           }).asStream();
                           Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (_) => NavBarView5()));
+                              MaterialPageRoute(builder: (_) => NavBarView1()));
                         },
                         child: Text('Tambah Data'),
                       ),
@@ -193,7 +153,7 @@ class _crud5State extends State<crud5> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ImageUploads5(),
+                                builder: (context) => ImageUploads1(),
                               ));
                         },
                         child: Text('Upload Photo'),
@@ -213,12 +173,10 @@ class _crud5State extends State<crud5> {
 class Data {
   final String key;
   final String nama;
+  final String nim;
   final String email;
-  final String jenis;
-  final double nilai;
-  final String skema;
-  final String tanggal;
+  final String status;
+  final String matakuliah;
 
-  Data(this.key, this.nama, this.email, this.jenis, this.nilai, this.skema,
-      this.tanggal);
+  Data(this.key, this.nama, this.nim, this.email, this.status, this.matakuliah);
 }
