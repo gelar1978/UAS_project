@@ -45,7 +45,7 @@ class _Home6State extends State<Home6> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(3),
-                    child: const Column(
+                    child: Column(
                       children: [
                         Text(
                           "MEMBERS",
