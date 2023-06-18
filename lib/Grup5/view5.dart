@@ -18,7 +18,8 @@ class _baca5State extends State<baca5> {
     return MaterialApp(
       title: "Viewdata",
       theme: ThemeData(
-        primaryColor: Colors.greenAccent[700],
+        fontFamily: 'Poppins',
+        primaryColor: Colors.indigo[900],
       ),
       home: Home(),
       debugShowCheckedModeBanner: false,
@@ -101,25 +102,25 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(l[0],
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   SizedBox(
                     height: 5,
                   ),
                   Text('Nilai: ' + l[1],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                   Text('Skema: ' + l[2],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                   Text('Jenis Kelamin: ' + l[3],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                   Text('Tanggal Lahir: ' + l[4],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                   Text('Email: ' + l[5],
                       style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                 ],
               ),
             ),

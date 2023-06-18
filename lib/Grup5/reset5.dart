@@ -12,6 +12,7 @@ class reset5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
       title: _title,
       home: Scaffold(
@@ -112,7 +113,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
                 child: ElevatedButton(
-                  child: const Text('Change'),
+                  child: const Text('Send to Email'),
                   onPressed: () async {
                     AuthService.resetPassword(nameController.text);
                     debugPrint(

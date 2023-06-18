@@ -162,7 +162,10 @@ class _crud5State extends State<crud5> {
                           });
                         }
                       }),
-                  //Upload Foto
+
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
