@@ -115,6 +115,9 @@ flutter:
     - lib/images/fajar.JPG
     - lib/images/Ez.png
     - lib/images/logo_grup5.jpg
+    - lib/images/rifaldiwr.png
+    - lib/images/logogrup1.jpg
+    - lib/images/ilman.jpg
     - assets/google_logo.svg
     - assets/facebook_logo.svg
 
