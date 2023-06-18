@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:UAS_project/Grup4/audioupload4.dart';
 import 'package:UAS_project/Grup4/imageupload4.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -132,6 +133,16 @@ class _updatedata4State extends State<updatedata4> {
                   );
                 }),
                 child: Text("UnggahCitraW")),
+            TextButton(
+                onPressed: (() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => audioupload4(),
+                    ),
+                  );
+                }),
+                child: Text("UnggahAudioH")),
           ],
         ),
       ),
