@@ -1,8 +1,8 @@
 import 'package:UAS_project/Grup3/home3.dart';
 import 'package:UAS_project/Grup3/input3.dart';
-import 'package:UAS_project/Grup3/viewfile3.dart';
-import 'package:UAS_project/Grup3/viewdata3.dart';
+import 'package:UAS_project/Grup3/bacafile3.dart';
 import 'package:UAS_project/Grup3/update3.dart';
+import 'package:UAS_project/Grup3/viewdata3.dart';
 import 'package:UAS_project/services/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +18,13 @@ class NavBarView extends StatelessWidget {
     input3(),
     update3(),
     viewdata3(),
-    viewfile3(),
+    bacafile3(),
   ];
 
   final List<String> _listTitleAppBar = const [
     'Home',
     'Input Data',
+    'View File',
     'Update Data',
     'View Data',
   ];
@@ -39,6 +40,8 @@ class NavBarView extends StatelessWidget {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.assignment), label: 'Input Data'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.science), label: 'View File'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.science), label: 'Update Data'),
             BottomNavigationBarItem(
