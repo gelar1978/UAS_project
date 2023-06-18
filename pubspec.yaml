@@ -107,9 +107,11 @@ flutter:
     - lib/images/afifah.jpg
     - lib/images/balqis.jpeg
     - lib/images/dhean.png
-    - lib/images/arya.jpg
+    - lib/images/arya.JPG
     - lib/images/hilmy.jpeg
     - lib/images/Abbey.jpg
+    - lib/images/fajar.JPG
+    - lib/images/Ez.png
     - assets/google_logo.svg
     - assets/facebook_logo.svg
 
