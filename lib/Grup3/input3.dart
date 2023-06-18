@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
-
 import 'package:UAS_project/Grup3/fileupload.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:UAS_project/Grup3/nav3.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:flutter_document_picker/flutter_document_picker.dart';
 
 class input3 extends StatefulWidget {
   @override
@@ -15,48 +14,63 @@ class input3 extends StatefulWidget {
 }
 
 class _input3State extends State<input3> {
-  final databaseReference = FirebaseDatabase.instance.ref('Grup3');
+  static const _chars = '';
+  Random _rnd = Random();
+  String getRandomString(int len) => String.fromCharCodes(
+        Iterable.generate(
+          len,
+          (_) => _chars.codeUnitAt(
+            _rnd.nextInt(_chars.length),
+          ),
+        ),
+      );
+
+  Future<firebase_storage.UploadTask?> uploadFile(File file) async {
+    if (file == null) {
+      print("No File was Picked");
+      return null;
+    }
+
+    firebase_storage.UploadTask uploadTask;
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('Grup3')
+        .child('/' + getRandomString(10) + '.pdf');
+
+    final metadata = firebase_storage.SettableMetadata(
+        contentType: 'file/pdf',
+        customMetadata: {'picked-file-path': file.path});
+    print("Uploading..!");
+
+    uploadTask = ref.putData(await file.readAsBytes(), metadata);
+
+    print("done..!");
+    return Future.value(uploadTask);
+  }
+
+  final databaseReference = FirebaseDatabase.instance.ref('grup3');
+  final fb = FirebaseDatabase.instance;
   List<Data> dataList = [];
-  // List<Map<String, dynamic>> dataList = [];
 
   final namaController = TextEditingController();
   final nimController = TextEditingController();
   final emailController = TextEditingController();
   final statusController = TextEditingController();
   final kodemkController = TextEditingController();
-  final jawabantextController = TextEditingController();
-  TextEditingController second = TextEditingController();
+  final jawabanController = TextEditingController();
+  //Upload Foto
 
-  TextEditingController third = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-    // database = FirebaseDatabase.instance.ref().child('tabel');
-    // Membaca data dari Firebase Realtime Database
-    DataSnapshot snapshot;
-    databaseReference.once().then((snapshot) {
-      setState(() {
-        dataList.clear();
-        ReadWriteValue<DatabaseEvent> values = snapshot.val('Grup3');
-        values.val.snapshot.children.forEach((element) {
-          var xx = element.value.val(element.key.toString()).val;
-        });
-      });
-    });
-  }
-
-  late DataSnapshot snapshot;
   void readData() async {
     Stream<DatabaseEvent> stream = databaseReference.onValue;
     stream.listen((DatabaseEvent event) {
-      print('Event Type: ${event.type}'); // DatabaseEventType.value;
+      print('Event Type: ${event.type}');
       print('Snapshot: ${event.snapshot.child('0001').value}');
-      print(event.snapshot); // DataSnapshot
+      print(event.snapshot);
     });
   }
 
-  void writeData(String nama, int nim, String email, String status,
-      String kodemk, String jawabantext) {
+  void writeData(String nama, String nim, String email, String status,
+      String kodemk, String jawaban) {
     Random random = Random();
     String num = random.nextInt(50000000).toString();
     databaseReference.child(num).set({
@@ -65,116 +79,100 @@ class _input3State extends State<input3> {
       'email': email,
       'status': status,
       'kodemk': kodemk,
-      'jawabantext': jawabantext,
+      'jawaban': jawaban,
     }).asStream();
-  }
-
-  // void updateData(
-  //     String key, String nama, int nim, double nilai, String resume) {
-  //   databaseReference.child(key).update({
-  //     'nama': nama,
-  //     'nim': nim,
-  //   }).asStream();
-  // }
-
-  void deleteData(String key) {
-    databaseReference.child(key).remove().then((_) {
-      // getData();
-      clearFields();
-    });
-  }
-
-  void clearFields() {
-    namaController.clear();
-    nimController.clear();
-    emailController.clear();
-    statusController.clear();
-    kodemkController.clear();
-    jawabantextController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
+    var rng = Random();
+    var k = rng.nextInt(10000);
+
+    final ref = fb.ref().child('grup3/$k');
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Firebase Realtime Database'),
+        backgroundColor: Colors.blue,
+        title: const Text('INPUT DATA'),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(4.5),
-            child: Column(
-              children: [
-                TextField(
-                  controller: namaController,
-                  decoration: InputDecoration(labelText: 'Nama'),
-                ),
-                TextField(
-                  controller: nimController,
-                  decoration: InputDecoration(labelText: 'NIM'),
-                ),
-                TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(labelText: 'Email'),
-                ),
-                TextField(
-                  controller: statusController,
-                  decoration: InputDecoration(labelText: 'Status'),
-                ),
-                TextField(
-                  controller: kodemkController,
-                  decoration: InputDecoration(labelText: 'KodeMK'),
-                ),
-                TextField(
-                  controller: jawabantextController,
-                  decoration: InputDecoration(labelText: 'Jawaban Text'),
-                ),
-                // TextField(
-                //   controller: resumeController,
-                //   decoration: InputDecoration(labelText: 'Unggah???'),
-                // ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // readData();
-                        // print(x);
-                        writeData(
-                          namaController.text,
-                          int.parse(nimController.text),
-                          emailController.text,
-                          statusController.text,
-                          kodemkController.text,
-                          jawabantextController.text,
-                          // double.parse(nilaiController.text),
-                          // resumeController.text,
-                        );
-                      },
-                      child: Text('Tambah Data'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        deleteData('0002');
-                      },
-                      child: Text('Bersihkan Kolom'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          TextButton(
-              onPressed: (() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UploadPDFScreen(),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: namaController,
+                    decoration: const InputDecoration(labelText: 'Nama'),
                   ),
-                );
-              }),
-              child: Text("Upload Pdf")),
-        ],
+                  TextField(
+                    controller: nimController,
+                    decoration: const InputDecoration(labelText: 'NIM'),
+                  ),
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(labelText: 'E-Mail'),
+                  ),
+                  TextField(
+                    controller: statusController,
+                    decoration: const InputDecoration(labelText: 'Status'),
+                  ),
+                  TextField(
+                    controller: kodemkController,
+                    decoration: const InputDecoration(labelText: 'Kode MK'),
+                  ),
+                  TextField(
+                    controller: jawabanController,
+                    decoration: const InputDecoration(labelText: 'Jawaban'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
+                        onPressed: () {
+                          Map<String, dynamic> nilaiMhs = {
+                            'nama': namaController.text,
+                            'nim': nimController.text,
+                            'email': emailController.text,
+                            'status': statusController.text,
+                            'kodemk': kodemkController.text,
+                            'jawaban': jawabanController.text,
+                          };
+                          ref.set(nilaiMhs).asStream();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => NavBarView(),
+                            ),
+                          );
+                        },
+                        child: const Text('Tambah Data'),
+                      ),
+                    ],
+                  ),
+                  TextButton(
+                      onPressed: (() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UploadPDFScreen(),
+                          ),
+                        );
+                      }),
+                      child: Text("Upload PDF")),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -182,10 +180,13 @@ class _input3State extends State<input3> {
 
 class Data {
   final String key;
+  final String nim;
   final String nama;
-  final int nim;
-  final double nilai;
-  final String resume;
+  final String email;
+  final String status;
+  final String kodemk;
+  final String jawaban;
 
-  Data(this.key, this.nama, this.nim, this.nilai, this.resume);
+  Data(this.key, this.nama, this.nim, this.email, this.status, this.kodemk,
+      this.jawaban);
 }

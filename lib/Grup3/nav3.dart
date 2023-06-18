@@ -16,7 +16,7 @@ class NavBarView extends StatelessWidget {
   final List<Widget> _listPage = [
     home3(),
     input3(),
-    update3(),
+    update3(nilaiMhsKey: ''),
     viewdata3(),
     bacafile3(),
   ];
